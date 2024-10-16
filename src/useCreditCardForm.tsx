@@ -7,7 +7,9 @@ export type CreditCardIssuer =
   | 'american-express'
   | 'diners-club'
   | 'discover'
-  | 'jcb';
+  | 'jcb'
+  | 'mir'
+  | 'unionpay';
 
 export type CreditCardFormField = 'number' | 'expiry' | 'cvc';
 

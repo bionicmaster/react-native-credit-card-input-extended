@@ -1,6 +1,8 @@
+### What is the difference from the original: support for MIR and UnionPay + types, the CVC code field type has been changed to "password"
+
 
 # React Native Credit Card Input - Finally updated in 2024!
-[Example on Expo Snack](https://snack.expo.io/@sbycrosz/react-native-credit-card-example) - Easy (and good looking) credit-card input for your React Native Project 💳 💳 
+[Example on Expo Snack](https://snack.expo.io/@sbycrosz/react-native-credit-card-example) - Easy (and good looking) credit-card input for your React Native Project 💳 💳
 
 
 <p align="center">
@@ -17,7 +19,7 @@ Code:
 ```
 
 # Features
-* Skeuomorphic credit-card 💳 
+* Skeuomorphic credit-card 💳
 * Lite version for smaller screens / compact layout
 * Credit-card input validations & formatting while you're typing
 * Form is fully navigatable using keypad
@@ -70,7 +72,7 @@ _onChange => form => console.log(form);
 
 [Expo Snack](https://snack.expo.io/@sbycrosz/react-native-credit-card-example)
 
-Or run it locally 
+Or run it locally
 
 ```bash
 yarn install

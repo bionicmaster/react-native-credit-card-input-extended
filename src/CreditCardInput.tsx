@@ -144,6 +144,7 @@ const CreditCardInput = (props: Props) => {
           <Text style={[s.inputLabel, labelStyle]}>{labels.cvc}</Text>
           <TextInput
             keyboardType="numeric"
+            textContentType="password"
             style={[s.input, inputStyle]}
             placeholderTextColor={placeholderColor}
             placeholder={placeholders.cvc}
