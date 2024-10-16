@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-credit-card-input": ["./src/index"]
+      "react-native-credit-card-input-extended": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
