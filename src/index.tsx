@@ -8,5 +8,6 @@ export {
   type ValidationState,
   type CreditCardFormState,
   type CreditCardFormData,
+  type CreditCardIssuer,
   useCreditCardForm,
 } from './useCreditCardForm';
