@@ -7,6 +7,7 @@ import {
   View,
   type ImageSourcePropType,
   type ViewStyle,
+  type StyleProp,
 } from 'react-native';
 import FlipCard from 'react-native-flip-card';
 import Icons from './Icons';
@@ -102,6 +103,7 @@ interface Props {
     name: string;
   };
   style?: ViewStyle;
+  cardStyle?: StyleProp<ViewStyle>;
 
   fontFamily?: string;
   imageFront?: ImageSourcePropType;
@@ -130,6 +132,7 @@ const CreditCardView = (props: Props) => {
       web: 'monospace',
     }),
     style,
+    cardStyle,
   } = props;
 
   const isAmex = type === 'american-express';
@@ -151,7 +154,7 @@ const CreditCardView = (props: Props) => {
         flip={shouldShowCardBack}
       >
         <ImageBackground
-          style={[CARD_SIZE, s.cardFace]}
+          style={[CARD_SIZE, s.cardFace, cardStyle]}
           source={imageFront}
         >
           {!!cardIcon && (
@@ -225,7 +228,7 @@ const CreditCardView = (props: Props) => {
         </ImageBackground>
 
         <ImageBackground
-          style={[CARD_SIZE, s.cardFace]}
+          style={[CARD_SIZE, s.cardFace, cardStyle]}
           source={imageBack}
         >
           <View style={s.cardMagneticStripe} />
