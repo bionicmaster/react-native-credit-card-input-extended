@@ -8,6 +8,7 @@ import {
   type ImageSourcePropType,
   type ViewStyle,
   type StyleProp,
+  type TextStyle,
 } from 'react-native';
 import FlipCard from 'react-native-flip-card';
 import Icons from './Icons';
@@ -104,6 +105,9 @@ interface Props {
   };
   style?: ViewStyle;
   cardStyle?: StyleProp<ViewStyle>;
+  textsStyle?: StyleProp<TextStyle>;
+  focusedTextsStyle?: StyleProp<TextStyle>;
+  cvcReplaceChar?: string;
 
   fontFamily?: string;
   imageFront?: ImageSourcePropType;
@@ -133,6 +137,9 @@ const CreditCardView = (props: Props) => {
     }),
     style,
     cardStyle,
+    textsStyle,
+    focusedTextsStyle,
+    cvcReplaceChar = '•',
   } = props;
 
   const isAmex = type === 'american-express';
@@ -142,6 +149,16 @@ const CreditCardView = (props: Props) => {
     if (type && Icons[type]) return Icons[type];
     return null;
   }, [type]);
+
+  const cvcText = useMemo(() => {
+    if (!cvc) {
+      return placeholders.cvc;
+    }
+    if (cvcReplaceChar) {
+      return cvcReplaceChar.repeat(cvc.length);
+    }
+    return cvc;
+  }, [cvc, cvcReplaceChar, placeholders.cvc]);
 
   return (
     <View style={[s.cardContainer, CARD_SIZE, style]}>
@@ -170,7 +187,9 @@ const CreditCardView = (props: Props) => {
               { fontFamily },
               s.number,
               !number && s.placeholder,
+              textsStyle,
               focusedField === 'number' && s.focusedField,
+              focusedField === 'number' && focusedTextsStyle,
             ]}
           >
             {!number ? placeholders.number : number}
@@ -182,7 +201,9 @@ const CreditCardView = (props: Props) => {
               { fontFamily },
               s.name,
               !name && s.placeholder,
+              textsStyle,
               focusedField === 'name' && s.focusedField,
+              focusedField === 'name' && focusedTextsStyle,
             ]}
             numberOfLines={1}
           >
@@ -195,7 +216,9 @@ const CreditCardView = (props: Props) => {
               { fontFamily },
               s.expiryLabel,
               s.placeholder,
+              textsStyle,
               focusedField === 'expiry' && s.focusedField,
+              focusedField === 'expiry' && focusedTextsStyle,
             ]}
           >
             MONTH/YEAR
@@ -206,7 +229,9 @@ const CreditCardView = (props: Props) => {
               { fontFamily },
               s.expiry,
               !expiry && s.placeholder,
+              textsStyle,
               focusedField === 'expiry' && s.focusedField,
+              focusedField === 'expiry' && focusedTextsStyle,
             ]}
           >
             {!expiry ? placeholders.expiry : expiry}
@@ -219,10 +244,12 @@ const CreditCardView = (props: Props) => {
                 { fontFamily },
                 s.amexCVC,
                 !cvc && s.placeholder,
+                textsStyle,
                 focusedField === 'cvc' && s.focusedField,
+                focusedField === 'cvc' && focusedTextsStyle,
               ]}
             >
-              {!cvc ? placeholders.cvc : cvc}
+              {cvcText}
             </Text>
           )}
         </ImageBackground>
@@ -237,10 +264,12 @@ const CreditCardView = (props: Props) => {
               s.baseText,
               s.cvc,
               !cvc && s.placeholder,
+              textsStyle,
               focusedField === 'cvc' && s.focusedField,
+              focusedField === 'cvc' && focusedTextsStyle,
             ]}
           >
-            {!cvc ? placeholders.cvc : cvc}
+            {cvcText}
           </Text>
         </ImageBackground>
       </FlipCard>
