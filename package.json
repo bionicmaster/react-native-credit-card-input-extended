@@ -1,16 +1,16 @@
 {
   "name": "react-native-credit-card-input-extended",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "React native credit card input component",
   "source": "./src/index.tsx",
-  "main": "./lib/commonjs/index.cjs",
+  "main": "./lib/module/index.mjs",
   "module": "./lib/module/index.mjs",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/typescript/src/index.d.ts",
       "import": "./lib/module/index.mjs",
-      "require": "./lib/commonjs/index.cjs"
+      "default": "./lib/module/index.mjs"
     }
   },
   "files": [
@@ -154,12 +154,6 @@
     "output": "lib",
     "targets": [
       [
-        "commonjs",
-        {
-          "esm": true
-        }
-      ],
-      [
         "module",
         {
           "esm": true
@@ -178,7 +172,7 @@
     "version": "0.38.1"
   },
   "dependencies": {
-    "card-validator": "^10.0.0",
+    "card-validator": "^10.0.2",
     "react-native-flip-card": "^3.5.7"
   }
 }
