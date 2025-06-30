@@ -62,7 +62,8 @@ const s = StyleSheet.create({
     fontSize: 16,
     borderBottomColor: 'darkgray',
     borderBottomWidth: 1,
-    // @ts-expect-error outlineWidth is used to hide the text-input outline on react-native-web
+    // outlineWidth is used to hide the text-input outline on react-native-web
+    // @ts-ignore
     outlineWidth: 0,
   },
   inputLabel: {

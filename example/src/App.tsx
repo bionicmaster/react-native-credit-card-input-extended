@@ -14,7 +14,7 @@ import {
   type CreditCardFormData,
   type CreditCardFormField,
   type ValidationState,
-} from 'react-native-credit-card-input';
+} from 'react-native-credit-card-input-extended';
 
 const s = StyleSheet.create({
   container: {

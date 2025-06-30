@@ -3,15 +3,15 @@
   "version": "1.1.0",
   "description": "React native credit card input component",
   "source": "./src/index.tsx",
-  "main": "./lib/module/index.mjs",
-  "module": "./lib/module/index.mjs",
+  "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
     ".": {
+      "source": "./src/index.tsx",
       "types": "./lib/typescript/src/index.d.ts",
-      "import": "./lib/module/index.mjs",
-      "default": "./lib/module/index.mjs"
-    }
+      "default": "./lib/module/index.js"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "src",
@@ -32,7 +32,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-credit-card-input-example",
+    "example": "yarn workspace react-native-credit-card-input-extended-example",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -49,40 +49,45 @@
     "type": "git",
     "url": "git+https://github.com/Psarsy/react-native-credit-card-input-extended.git"
   },
-  "author": "sbycrosz <sbycrosz@gmail.com> (https://github.com/sbycrosz)",
+  "author": "Miguel Velasco <bionicmaster@creativacional.com> (https://github.com/bionicmaster)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sbycrosz/react-native-credit-card-input/issues"
+    "url": "https://github.com/bionicmaster/react-native-credit-card-input-extended/issues"
   },
-  "homepage": "https://github.com/sbycrosz/react-native-credit-card-input#readme",
+  "homepage": "https://github.com/bionicmaster/react-native-credit-card-input-extended#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^17.0.2",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.22.0",
     "@evilmartians/lefthook": "^1.5.0",
-    "@react-native/eslint-config": "^0.73.1",
-    "@release-it/conventional-changelog": "^5.0.0",
+    "@react-native/babel-preset": "0.78.2",
+    "@react-native/eslint-config": "^0.78.0",
+    "@release-it/conventional-changelog": "^9.0.2",
     "@testing-library/react-native": "^12.5.1",
     "@types/jest": "^29.5.5",
-    "@types/react": "^18.2.44",
+    "@types/react": "^19.0.12",
     "@types/react-native-flip-card": "^3.5.7",
-    "commitlint": "^17.0.2",
+    "commitlint": "^19.0.0",
     "del-cli": "^5.1.0",
-    "eslint": "^8.51.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.1",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-ft-flow": "^3.0.11",
+    "eslint-plugin-prettier": "^5.2.3",
     "jest": "^29.7.0",
-    "prettier": "3.3.2",
-    "react": "18.2.0",
-    "react-native": "0.74.3",
-    "react-native-builder-bob": "^0.25.0",
+    "prettier": "^3.6.2",
+    "react": "19.0.0",
+    "react-native": "0.79.4",
+    "react-native-builder-bob": "^0.40.12",
     "react-test-renderer": "^18.3.1",
-    "release-it": "^15.0.0",
-    "typescript": "^5.2.2"
+    "release-it": "^17.10.0",
+    "typescript": "^5.8.3"
   },
   "resolutions": {
-    "@types/react": "^18.2.44"
+    "@types/react": "^19.0.12"
   },
   "peerDependencies": {
     "react": "*",
@@ -159,20 +164,16 @@
           "esm": true
         }
       ],
-      [
-        "typescript",
-        {
-          "project": "tsconfig.build.json"
-        }
-      ]
+      "typescript"
     ]
   },
   "create-react-native-library": {
+    "languages": "js",
     "type": "library",
-    "version": "0.38.1"
+    "version": "0.51.1"
   },
   "dependencies": {
-    "card-validator": "^10.0.2",
-    "react-native-flip-card": "^3.5.7"
+    "card-validator": "~10.0.2",
+    "react-native-flip-card": "~3.5.7"
   }
 }
