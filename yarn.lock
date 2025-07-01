@@ -2312,8 +2312,8 @@ __metadata:
   linkType: hard
 
 "@expo/package-manager@npm:^1.5.0":
-  version: 1.8.4
-  resolution: "@expo/package-manager@npm:1.8.4"
+  version: 1.8.5
+  resolution: "@expo/package-manager@npm:1.8.5"
   dependencies:
     "@expo/json-file": ^9.1.4
     "@expo/spawn-async": ^1.7.2
@@ -2321,7 +2321,7 @@ __metadata:
     npm-package-arg: ^11.0.0
     ora: ^3.4.0
     resolve-workspace-root: ^2.0.0
-  checksum: e4cb87217d319ff952e77dfbc69abf1792ef9c14dac5e915865e986c74173daa3d69202e405892d5a3d8bc70a36f87aeccddb4433c84d13b3dce099f2f64a792
+  checksum: 028ad9e8871133a9e8e249c885267893be7f80927f6893d29fae86e8e8d0bb7d078cf792b18600b1326dcb2a0d67145ff05d70ea4bfdd212b4032ea05d3ae0c5
   languageName: node
   linkType: hard
 
@@ -4135,11 +4135,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 24.0.7
-  resolution: "@types/node@npm:24.0.7"
+  version: 24.0.8
+  resolution: "@types/node@npm:24.0.8"
   dependencies:
     undici-types: ~7.8.0
-  checksum: e3986e0683cf5cf816297200deb0627e62b60d81952391ed03e292cd13463acaa0601adbce2402ecf560eac7a80bbc77f58417173cb01755a79fbed0b2165c92
+  checksum: 78a7af615a543599af1280f087c204c987a265121d656060352db0f80bc1e55c90abae1d007732db5dda19f77dfb196ed29bdc4a9966042c2d44023503fd52aa
   languageName: node
   linkType: hard
 

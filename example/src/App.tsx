@@ -58,6 +58,22 @@ const s = StyleSheet.create({
 const toStatusIcon = (status?: ValidationState) =>
   status === 'valid' ? '✅' : status === 'invalid' ? '❌' : '❓';
 
+const errorMessages = {
+  number: {
+    invalid: 'Invalid card number',
+    incomplete: 'Incomplete card number',
+  },
+  expiry: {
+    invalid: 'Invalid expiry date',
+    incomplete: 'Incomplete expiry date',
+  },
+  cvc: {
+    invalid: 'Invalid CVC',
+    incomplete: 'Incomplete CVC',
+  },
+  name: 'Name is required',
+};
+
 export default function Example() {
   const [useLiteInput, setUseLiteInput] = useState(false);
 
@@ -69,7 +85,7 @@ export default function Example() {
     <ScrollView contentContainerStyle={s.container}>
       <Switch
         style={s.switch}
-        onValueChange={(v) => {
+        onValueChange={(v: any) => {
           setUseLiteInput(v);
           setFormData(undefined);
         }}
@@ -82,7 +98,9 @@ export default function Example() {
         number={formData?.values.number}
         expiry={formData?.values.expiry}
         cvc={formData?.values.cvc}
+        name={formData?.values.name}
         style={s.cardView}
+        monthYearLabel="MONTH/YEAR"
       />
 
       {useLiteInput ? (
@@ -94,10 +112,26 @@ export default function Example() {
         />
       ) : (
         <CreditCardInput
+          focusedField={focusedField}
           autoFocus
+          requiresName
           style={s.cardInput}
+          formData={formData}
           onChange={setFormData}
           onFocusField={setFocusedField}
+          errorMessages={errorMessages}
+          labels={{
+            number: 'Card Number',
+            expiry: 'Expiry',
+            cvc: 'CVC',
+            name: 'Holder Name',
+          }}
+          placeholders={{
+            number: '1234 5678 1234 5678',
+            expiry: 'MM/AA',
+            cvc: '123',
+            name: 'JOHN DOE',
+          }}
         />
       )}
 
@@ -129,6 +163,11 @@ export default function Example() {
         <Text style={s.info}>
           {'ℹ️ Type  \t: '}
           {formData?.values.type}
+        </Text>
+
+        <Text style={s.info}>
+          {'📛 Name  \t: '}
+          {formData?.values.name}
         </Text>
       </View>
     </ScrollView>

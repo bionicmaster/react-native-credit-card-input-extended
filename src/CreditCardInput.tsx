@@ -23,15 +23,35 @@ interface Props {
     number: string;
     expiry: string;
     cvc: string;
+    name?: string;
   };
   placeholders?: {
     number: string;
     expiry: string;
     cvc: string;
+    name?: string;
   };
+  formData?: CreditCardFormData;
   onChange: (formData: CreditCardFormData) => void;
+  focusedField?: CreditCardFormField;
   onFocusField?: (field: CreditCardFormField) => void;
   testID?: string;
+  errorMessages?: {
+    number?: {
+      invalid?: string;
+      incomplete?: string;
+    };
+    expiry?: {
+      invalid?: string;
+      incomplete?: string;
+    };
+    cvc?: {
+      invalid?: string;
+      incomplete?: string;
+    };
+    name?: string;
+  };
+  requiresName?: boolean;
 }
 
 const s = StyleSheet.create({
@@ -63,7 +83,6 @@ const s = StyleSheet.create({
     borderBottomColor: 'darkgray',
     borderBottomWidth: 1,
     // outlineWidth is used to hide the text-input outline on react-native-web
-    // @ts-ignore
     outlineWidth: 0,
   },
   inputLabel: {

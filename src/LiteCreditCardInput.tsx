@@ -78,7 +78,6 @@ const s = StyleSheet.create({
     height: 40,
     fontSize: 16,
     // outlineWidth is used to hide the text-input outline on react-native-web
-    // @ts-ignore
     outlineWidth: 0,
   },
 });
@@ -217,6 +216,7 @@ const LiteCreditCardInput = (props: Props) => {
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
             testID="CC_CVC"
+            secureTextEntry
           />
         </View>
       </View>

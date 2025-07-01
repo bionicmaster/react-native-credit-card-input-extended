@@ -11,12 +11,13 @@ export type CreditCardIssuer =
   | 'mir'
   | 'unionpay';
 
-export type CreditCardFormField = 'number' | 'expiry' | 'cvc';
+export type CreditCardFormField = 'number' | 'expiry' | 'cvc' | 'name';
 
 export type CreditCardFormValues = {
   number: string;
   expiry: string;
   cvc: string;
+  name: string;
   type?: CreditCardIssuer;
 };
 
@@ -26,12 +27,20 @@ export type CreditCardFormState = {
   number: ValidationState;
   expiry: ValidationState;
   cvc: ValidationState;
+  name: ValidationState;
 };
 
 export type CreditCardFormData = {
   valid: boolean;
   values: CreditCardFormValues;
   status: CreditCardFormState;
+};
+
+export type CreditCardFormErrors = {
+  number?: ValidationState;
+  expiry?: ValidationState;
+  cvc?: ValidationState;
+  name?: ValidationState;
 };
 
 // --- Utilities
@@ -92,20 +101,79 @@ const formatCardCVC = (cvc: string, cvcMaxLength: number) => {
 };
 
 export const useCreditCardForm = (
-  onChange: (formData: CreditCardFormData) => void
+  onChange: (formData: CreditCardFormData) => void,
+  requiresName: boolean = true
 ) => {
   const [formState, setFormState] = useState<CreditCardFormState>({
     number: 'incomplete',
     expiry: 'incomplete',
     cvc: 'incomplete',
+    name: 'incomplete',
   });
 
   const [values, setValues] = useState<CreditCardFormValues>({
     number: '',
     expiry: '',
     cvc: '',
+    name: '',
     type: undefined,
   });
+
+  const [errors, setErrors] = useState<CreditCardFormErrors>({});
+
+  const validateAll = useCallback(() => {
+    const numberValidation = cardValidator.number(values.number);
+    // @ts-ignore
+    const nameValidation = requiresName ? values.name.trim().length > 0 : true;
+
+    const cvcMaxLength = numberValidation.card?.code.size || 3;
+    const cardNumberGaps = numberValidation.card?.gaps || [4, 8, 12];
+    const cardNumberMaxLength = Math.max(
+      ...(numberValidation.card?.lengths || [16])
+    );
+
+    const newFormattedValues = {
+      number: formatCardNumber(
+        values.number,
+        cardNumberMaxLength,
+        cardNumberGaps
+      ),
+      expiry: formatCardExpiry(values.expiry),
+      cvc: formatCardCVC(values.cvc, cvcMaxLength),
+      name: values.name,
+      type: numberValidation.card?.type as CreditCardIssuer,
+    };
+
+    const newFormState: CreditCardFormState = {
+      number: toStatus(
+        cardValidator.number(removeNonNumber(newFormattedValues.number))
+      ),
+      expiry: toStatus(cardValidator.expirationDate(newFormattedValues.expiry)),
+      cvc: toStatus(cardValidator.cvv(newFormattedValues.cvc, cvcMaxLength)),
+      name: nameValidation ? 'valid' : 'invalid',
+    };
+
+    const newErrors: CreditCardFormErrors = {
+      number: newFormState.number === 'invalid' ? 'invalid' : undefined,
+      expiry: newFormState.expiry === 'invalid' ? 'invalid' : undefined,
+      cvc: newFormState.cvc === 'invalid' ? 'invalid' : undefined,
+      name: newFormState.name === 'invalid' ? 'invalid' : undefined,
+    };
+
+    setErrors(newErrors);
+    setValues(newFormattedValues);
+    setFormState(newFormState);
+
+    onChange({
+      valid:
+        newFormState.number === 'valid' &&
+        newFormState.expiry === 'valid' &&
+        newFormState.cvc === 'valid' &&
+        newFormState.name === 'valid',
+      values: newFormattedValues,
+      status: newFormState,
+    });
+  }, [values, onChange, requiresName]);
 
   const onChangeValue = useCallback(
     (field: CreditCardFormField, value: string) => {
@@ -114,14 +182,16 @@ export const useCreditCardForm = (
         [field]: value,
       };
 
-      const numberValidation = cardValidator.number(newValues.number);
-
-      // When card issuer cant be detected, use these default (3 digit CVC, 16 digit card number with spaces every 4 digit)
+      let numberValidation = cardValidator.number(newValues.number);
+      // @ts-ignore
+      const nameValidation = requiresName
+        ? newValues.name.trim().length > 0
+        : true;
       const cvcMaxLength = numberValidation.card?.code.size || 3;
       const cardNumberGaps = numberValidation.card?.gaps || [4, 8, 12];
-      const cardNumberMaxLength =
-        // Credit card number can vary. Use the longest possible as maximum (otherwise fallback to 16)
-        Math.max(...(numberValidation.card?.lengths || [16]));
+      const cardNumberMaxLength = Math.max(
+        ...(numberValidation.card?.lengths || [16])
+      );
 
       const newFormattedValues = {
         number: formatCardNumber(
@@ -131,17 +201,29 @@ export const useCreditCardForm = (
         ),
         expiry: formatCardExpiry(newValues.expiry),
         cvc: formatCardCVC(newValues.cvc, cvcMaxLength),
+        name: newValues.name,
         type: numberValidation.card?.type as CreditCardIssuer,
       };
 
-      const newFormState = {
-        number: toStatus(cardValidator.number(newFormattedValues.number)),
+      const newFormState: CreditCardFormState = {
+        number: toStatus(
+          cardValidator.number(removeNonNumber(newFormattedValues.number))
+        ),
         expiry: toStatus(
           cardValidator.expirationDate(newFormattedValues.expiry)
         ),
         cvc: toStatus(cardValidator.cvv(newFormattedValues.cvc, cvcMaxLength)),
+        name: nameValidation ? 'valid' : 'invalid',
       };
 
+      const newErrors: CreditCardFormErrors = {
+        number: newFormState.number === 'invalid' ? 'invalid' : undefined,
+        expiry: newFormState.expiry === 'invalid' ? 'invalid' : undefined,
+        cvc: newFormState.cvc === 'invalid' ? 'invalid' : undefined,
+        name: newFormState.name === 'invalid' ? 'invalid' : undefined,
+      };
+
+      setErrors(newErrors);
       setValues(newFormattedValues);
       setFormState(newFormState);
 
@@ -149,17 +231,20 @@ export const useCreditCardForm = (
         valid:
           newFormState.number === 'valid' &&
           newFormState.expiry === 'valid' &&
-          newFormState.cvc === 'valid',
+          newFormState.cvc === 'valid' &&
+          newFormState.name === 'valid',
         values: newFormattedValues,
         status: newFormState,
       });
     },
-    [values, onChange]
+    [values, onChange, requiresName]
   );
 
   return {
+    validateAll,
     values,
     status: formState,
+    errors,
     onChangeValue,
   };
 };

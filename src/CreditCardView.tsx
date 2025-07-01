@@ -96,6 +96,7 @@ interface Props {
   number?: string;
   expiry?: string;
   cvc?: string;
+  monthYearLabel?: string;
 
   placeholders?: {
     number: string;
@@ -122,6 +123,7 @@ const CreditCardView = (props: Props) => {
     number,
     expiry,
     cvc,
+    monthYearLabel,
     placeholders = {
       number: '•••• •••• •••• ••••',
       name: '',
@@ -221,7 +223,7 @@ const CreditCardView = (props: Props) => {
               focusedField === 'expiry' && focusedTextsStyle,
             ]}
           >
-            MONTH/YEAR
+            {monthYearLabel || 'MONTH/YEAR'}
           </Text>
           <Text
             style={[
