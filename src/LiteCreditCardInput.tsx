@@ -152,6 +152,8 @@ const LiteCreditCardInput = (props: Props) => {
             onFocus={() => onFocusField('number')}
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
+            autoComplete="cc-number"
+            textContentType="creditCardNumber"
             testID="CC_NUMBER"
           />
         </View>
@@ -199,6 +201,8 @@ const LiteCreditCardInput = (props: Props) => {
             onFocus={() => onFocusField('expiry')}
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
+            textContentType="creditCardExpiration"
+            autoComplete="cc-exp"
             testID="CC_EXPIRY"
           />
         </View>
@@ -216,6 +220,8 @@ const LiteCreditCardInput = (props: Props) => {
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
             testID="CC_CVC"
+            textContentType="creditCardSecurityCode"
+            autoComplete="cc-csc"
             secureTextEntry
           />
         </View>

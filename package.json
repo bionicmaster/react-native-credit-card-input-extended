@@ -1,6 +1,6 @@
 {
   "name": "react-native-credit-card-input-extended",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "React native credit card input component",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
@@ -48,7 +48,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Psarsy/react-native-credit-card-input-extended.git"
+    "url": "git+https://github.com/bionicmaster/react-native-credit-card-input-extended.git"
   },
   "author": "Miguel Velasco <bionicmaster@creativacional.com> (https://github.com/bionicmaster)",
   "license": "MIT",
@@ -179,5 +179,8 @@
   },
   "directories": {
     "example": "example"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

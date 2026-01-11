@@ -193,6 +193,8 @@ const CreditCardInput = (props: Props) => {
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
             testID="CC_NAME"
+            textContentType="creditCardName"
+            autoComplete="cc-name"
           />
           {formData?.status.name === 'invalid' && errorMessages.name && (
             <Text style={s.errorText}>{errorMessages.name}</Text>
@@ -234,6 +236,8 @@ const CreditCardInput = (props: Props) => {
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
             testID="CC_EXPIRY"
+            textContentType="creditCardExpiration"
+            autoComplete="cc-exp"
           />
           {handleInputErrorText('expiry')}
         </View>
@@ -242,7 +246,7 @@ const CreditCardInput = (props: Props) => {
           <Text style={[s.inputLabel, labelStyle]}>{labels.cvc}</Text>
           <TextInput
             keyboardType="numeric"
-            textContentType="password"
+            textContentType="creditCardSecurityCode"
             secureTextEntry={true}
             style={handleInputStyle('cvc')}
             placeholderTextColor={placeholderColor}
@@ -252,6 +256,7 @@ const CreditCardInput = (props: Props) => {
             onFocus={() => onFocusField('cvc')}
             autoCorrect={false}
             underlineColorAndroid={'transparent'}
+            autoComplete="cc-csc"
             testID="CC_CVC"
           />
           {handleInputErrorText('cvc')}
